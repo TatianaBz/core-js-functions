@@ -18,7 +18,7 @@
  *
  */
 function getCurrentFunctionName() {
-  throw new Error('Not implemented');
+  return getCurrentFunctionName.name;
 }
 
 /**
@@ -32,8 +32,12 @@ function getCurrentFunctionName() {
  *   getFunctionBody(hiHello) => "function hiHello() { console.log('hello world'); }"
  *
  */
-function getFunctionBody(/* func */) {
-  throw new Error('Not implemented');
+function getFunctionBody(func) {
+  let f = func;
+  if (f === undefined) {
+    f = '';
+  }
+  return f;
 }
 
 /**
@@ -50,10 +54,10 @@ function getFunctionBody(/* func */) {
  *  ]) => [0, 1, 2]
  *
  */
-function getArgumentsCount(/* funcs */) {
-  throw new Error('Not implemented');
+function getArgumentsCount(funcs) {
+  const f = funcs.map((args) => args.length);
+  return f;
 }
-
 /**
  * Returns the math power function with the specified exponent
  *
@@ -70,8 +74,10 @@ function getArgumentsCount(/* funcs */) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return function power(x) {
+    return x ** exponent;
+  };
 }
 
 /**
@@ -129,9 +135,8 @@ function retry(/* func, attempts */) {
 }
 
 /**
- * Returns the logging wrapper for the specified method,
- * Logger has to log the start and end of calling the specified function.
- * Logger has to log the arguments of invoked function.
+
+
  * The format of output log is:
  * <function name>(<arg1>, <arg2>,...,<argN>) starts
  * <function name>(<arg1>, <arg2>,...,<argN>) ends
@@ -168,13 +173,15 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  return (...args2) => {
+    return fn(...args1, ...args2);
+  };
 }
 
 /**
  * Returns the id generator function that returns next integer starting
- * from specified number every time when invoking.
+ * from specified number every time when invokingn.
  *
  * @param {Number} startFrom
  * @return {Function}
@@ -189,8 +196,13 @@ function partialUsingArguments(/* fn, ...args1 */) {
  *   getId4() => 7
  *   getId10() => 11
  */
-function getIdGeneratorFunction(/* startFrom */) {
-  throw new Error('Not implemented');
+function getIdGeneratorFunction(startFrom) {
+  let start = startFrom;
+  return () => {
+    const res = start;
+    start += 1;
+    return res;
+  };
 }
 
 module.exports = {
